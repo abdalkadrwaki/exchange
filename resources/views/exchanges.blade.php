@@ -144,11 +144,11 @@
                                                 <td class="font-bold text-center align-middle h-16">
                                                     {{ $exchange->created_at->format('Y-m-d') }}</td>
                                             </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="9" class="text-center text-muted">لا توجد بيانات لعرضها.</td>
-                                            </tr>
-                                        @endforelse
+                                      @empty
+                                        <tr>
+                                            <td colspan="9" class="text-center">لا توجد بيانات متوفرة</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
