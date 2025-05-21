@@ -47,7 +47,7 @@ Route::put('/deliveries/{id}', [DeliveryController::class, 'update'])->name('del
 Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->name('deliveries.destroy');
 
 
-    Route::get('/Exchanges', [ExchangeController::class, 'filter'])->name('Exchanges.filter');
+    Route::get('/exchanges', [ExchangeController::class, 'filter'])->name('exchanges.filter');
     Route::put('/exchanges/{id}', [ExchangeController::class, 'update']);
 Route::delete('/exchanges/{id}', [ExchangeController::class, 'destroy'])->name('exchanges.destroy');
 
