@@ -50,7 +50,8 @@ Route::middleware([
     Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->name('deliveries.destroy');
 
 
-    Route::get('/exchanges', [ExchangeController::class, 'filter'])->name('exchanges.filter');
+ 
+Route::get('/exchanges', [ExchangeController::class, 'filter'])->name('exchanges.filter');
 
     Route::put('/exchanges/{id}', [ExchangeController::class, 'update']);
     Route::delete('/exchanges/{id}', [ExchangeController::class, 'destroy'])->name('exchanges.destroy');
