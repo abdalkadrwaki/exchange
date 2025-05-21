@@ -30,7 +30,7 @@
             </div>
             <div class="card-body">
                 <div class="p-4 bg-custom-gray2 shadow-md rounded-md">
-                    <form action="{{ route('Exchanges.filter') }}" method="GET">
+                    <form action="{{ route('exchanges.filter') }}" method="GET">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="from_date">من تاريخ</label>
