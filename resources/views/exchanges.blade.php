@@ -218,7 +218,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="9" class="text-center">لا توجد بيانات متوفرة</td>
+                                                
                                             </tr>
                                         @endforelse
                                     </tbody>
