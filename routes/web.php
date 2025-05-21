@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\TransactionController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -39,17 +40,20 @@ Route::middleware([
 
     Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
 
-    Route::get('/receipt', function () {return view('receipt');})->name('receipt');
+    Route::get('/receipt', function () {
+        return view('receipt');
+    })->name('receipt');
 
     Route::get('/deliveries', [DeliveryController::class, 'filter'])->name('deliveries.filter');
     Route::put('/deliveries/{id}', [DeliveryController::class, 'update']);
-Route::put('/deliveries/{id}', [DeliveryController::class, 'update'])->name('deliveries.update');
-Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->name('deliveries.destroy');
+    Route::put('/deliveries/{id}', [DeliveryController::class, 'update'])->name('deliveries.update');
+    Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy'])->name('deliveries.destroy');
 
 
     Route::get('/exchanges', [ExchangeController::class, 'filter'])->name('exchanges.filter');
+
     Route::put('/exchanges/{id}', [ExchangeController::class, 'update']);
-Route::delete('/exchanges/{id}', [ExchangeController::class, 'destroy'])->name('exchanges.destroy');
+    Route::delete('/exchanges/{id}', [ExchangeController::class, 'destroy'])->name('exchanges.destroy');
 
 
     Route::get('/transactions', function () {
