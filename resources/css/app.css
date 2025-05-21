@@ -1,0 +1,13 @@
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* أي CSS خاص بك تضعه هنا */
+
+
+
+[x-cloak] {
+    display: none;
+}

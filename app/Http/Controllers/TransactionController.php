@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Exchange;
+use App\Models\Delivery;
+use Illuminate\Support\Facades\Auth;
+
+class TransactionController extends Controller
+{
+    public function index()
+    {
+        return view('user.home');
+    }
+
+    public function store(Request $request)
+    {
+        $userId = Auth::id();
+
+        // 1. التحقق من صحة البيانات
+        $validated = $request->validate([
+            'currency_name'    => 'nullable|string|max:3',
+            'currency_name3'   => 'nullable|string|max:3',
+            'amount'           => 'nullable|numeric',
+            'rate'             => 'nullable|string',
+            'total'            => 'nullable|string',
+            'note'             => 'nullable|string',
+            'beneficiary'      => 'nullable|string',
+            'transaction_type2' => 'nullable|string',
+            'currency_name2'   => 'nullable|string|max:3',
+            'amount2'          => 'nullable|numeric',
+        ]);
+
+        $exchange = null;
+        $delivery = null;
+
+        // معالجة عملية الصرافة
+        if (
+            !empty($validated['currency_name'])
+            && !empty($validated['currency_name3'])
+            && !empty($validated['amount'])
+            && !empty($validated['rate'])
+            && !empty($validated['total'])
+        ) {
+
+            // إزالة الفواصل من rate و total وتحويلهم لأرقام صالحة
+            $cleanRate  = (float) str_replace(',', '', $validated['rate']);
+            $cleanTotal = (float) str_replace(',', '', $validated['total']);
+
+            // توليد كود المعاملة
+            $exchangeCount = Exchange::count() + 1;
+            $exchangeCode  = str_pad($exchangeCount, 9, '0', STR_PAD_LEFT) . ' SR';
+
+            $exchange = Exchange::create([
+                'transaction_type' => 'صرافة',
+                'currency_name'    => $validated['currency_name'],
+                'currency_name3'   => $validated['currency_name3'],
+                'amount'           => $validated['amount'],
+                'rate'             => $cleanRate,
+                'total'            => $cleanTotal,
+                'transaction_code' => $exchangeCode,
+                // اجعل حقل note افتراضياً سلسلة لا قيمة لها بدلاً من null
+                'note'             => $validated['note'] ?? '',
+                'user_id'          => $userId,
+            ]);
+        }
+
+        // معالجة عملية التسليم/الاستلام
+        if (
+            !empty($validated['beneficiary'])
+            && !empty($validated['transaction_type2'])
+            && !empty($validated['currency_name2'])
+            && !empty($validated['amount2'])
+        ) {
+
+            // توليد كود المعاملة
+            $deliveryCount = Delivery::count() + 1;
+            $deliveryCode  = 'TS' . str_pad($deliveryCount, 9, '0', STR_PAD_LEFT);
+
+            $delivery = Delivery::create([
+                'beneficiary'      => $validated['beneficiary'],
+                'transaction_type' => $validated['transaction_type2'],
+                'currency_name'    => $validated['currency_name2'],
+                'amount'           => $validated['amount2'],
+                'transaction_code' => $deliveryCode,
+                // اعطِ note سلسلة فارغة إذا لم يقدم المستخدم ملاحظة
+                'note'             => $validated['note'] ?? '',
+                'user_id'          => $userId,
+            ]);
+        }
+
+        // رسالة نجاح
+        session()->flash('success', 'تم حفظ العمليات بنجاح.');
+
+       // إذا كانت العملية صرافة فقط
+if ($exchange) {
+    session()->forget('delivery'); // امسح بيانات التسليم إن وُجدت
+    session()->put('exchange', $exchange->toArray());
+}
+
+// إذا كانت العملية تسليم أو استلام فقط
+if ($delivery) {
+    session()->forget('exchange'); // امسح بيانات الصرافة إن وُجدت
+    session()->put('delivery', $delivery->toArray());
+}
+
+
+        return redirect()->back()->with('redirect_to_receipt', true);
+    }
+}
