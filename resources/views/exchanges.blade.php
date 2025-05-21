@@ -145,8 +145,8 @@
                                                     {{ $exchange->created_at->format('Y-m-d') }}</td>
                                             </tr>
                                         @empty
-                                         <tr>
-
+                                            <tr>
+                                                <td colspan="9" class="text-center text-muted">لا توجد بيانات لعرضها.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -221,7 +221,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-
+                                                <td colspan="9" class="text-center text-muted">لا توجد بيانات لعرضها.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
