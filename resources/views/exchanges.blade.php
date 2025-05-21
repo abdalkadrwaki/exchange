@@ -75,11 +75,7 @@
         <!-- بطاقة الجدول -->
         <div class="card" style="max-width: 1200px; margin: auto;">
             <div class="card-body">
-                @if (!request()->filled('from_date') || !request()->filled('to_date'))
-                    <div class="alert alert-info text-center">
-                        يرجى تحديد نطاق زمني (من تاريخ وإلى تاريخ) لتظهر البيانات.
-                    </div>
-                @else
+
                     @if (!request()->has('currency') || request('currency') == '')
                         <div class="alert alert-info text-center">
                             يرجى اختيار العملة لتظهر البيانات.
@@ -175,7 +171,7 @@
                                                     <td class="font-bold text-center align-middle h-16">
                                                         {{ $exchange->created_at->format('Y-m-d') }}</td>
                                                 </tr>
-                                           
+                                            @empty
                                             @endforelse
                                         </tbody>
 
@@ -361,17 +357,7 @@
 
 
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const today = new Date().toISOString().split('T')[0];
-                if (!document.getElementById('from_date').value) {
-                    document.getElementById('from_date').value = today;
-                }
-                if (!document.getElementById('to_date').value) {
-                    document.getElementById('to_date').value = today;
-                }
-            });
-        </script>
+  
 
     </div>
 
