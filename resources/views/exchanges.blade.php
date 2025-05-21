@@ -145,6 +145,9 @@
                                                     {{ $exchange->created_at->format('Y-m-d') }}</td>
                                             </tr>
                                         @empty
+                                         <tr>
+
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -218,7 +221,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                
+
                                             </tr>
                                         @endforelse
                                     </tbody>
