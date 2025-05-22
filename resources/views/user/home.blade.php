@@ -95,7 +95,6 @@
 
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                // العناصر الرئيسية
                                 const elements = {
                                     amount: document.getElementById('amount'),
                                     rate: document.getElementById('rate'),
@@ -104,51 +103,80 @@
                                     toCurrency: document.getElementById('currency_name3')
                                 };
 
-                                // ترتيب قوة العملات (من الأقوى إلى الأضعف)
                                 const currencyHierarchy = ['EUR', 'USD', 'SAR', 'TRY', 'SYP'];
+                                let isUpdating = false; // لمنع التحديث الدائري
 
-                                // دالة التحويل الرئيسية
-                                function calculateConversion() {
+                                function getConversionDirection(from, to) {
+                                    const fromStrength = currencyHierarchy.indexOf(from);
+                                    const toStrength = currencyHierarchy.indexOf(to);
+
+                                    if (fromStrength === -1 || toStrength === -1) return 'multiply';
+                                    return fromStrength < toStrength ? 'multiply' : 'divide';
+                                }
+
+                                function updateTotalFromAmount() {
+                                    if (isUpdating) return;
+                                    isUpdating = true;
+
                                     const amount = parseFloat(elements.amount.value) || 0;
                                     const rate = parseFloat(elements.rate.value) || 0;
                                     const from = elements.fromCurrency.value;
                                     const to = elements.toCurrency.value;
 
-                                    if (!amount || !rate || from === to) {
+                                    if (!amount || !rate || from === '' || to === '' || from === to) {
                                         elements.total.value = '';
+                                        isUpdating = false;
                                         return;
                                     }
 
-                                    // تحديد موقع كل عملة في التسلسل الهرمي
-                                    const fromStrength = currencyHierarchy.indexOf(from);
-                                    const toStrength = currencyHierarchy.indexOf(to);
+                                    const direction = getConversionDirection(from, to);
+                                    const total = direction === 'multiply' ? amount * rate : amount / rate;
 
-                                    let result;
-
-                                    if (fromStrength === -1 || toStrength === -1) {
-                                        // إذا كانت العملة غير موجودة في القائمة: ضرب دائمًا
-                                        result = amount * rate;
-                                    } else if (fromStrength < toStrength) {
-                                        // تحويل من عملة أقوى إلى أضعف: ضرب
-                                        result = amount * rate;
-                                    } else {
-                                        // تحويل من عملة أضعف إلى أقوى: قسمة
-                                        result = amount / rate;
-                                    }
-
-                                    elements.total.value = result.toFixed(2);
+                                    elements.total.value = total.toFixed(2);
+                                    isUpdating = false;
                                 }
 
-                                // إضافة مستمعي الأحداث
+                                function updateAmountFromTotal() {
+                                    if (isUpdating) return;
+                                    isUpdating = true;
+
+                                    const total = parseFloat(elements.total.value) || 0;
+                                    const rate = parseFloat(elements.rate.value) || 0;
+                                    const from = elements.fromCurrency.value;
+                                    const to = elements.toCurrency.value;
+
+                                    if (!total || !rate || from === '' || to === '' || from === to) {
+                                        elements.amount.value = '';
+                                        isUpdating = false;
+                                        return;
+                                    }
+
+                                    const direction = getConversionDirection(from, to);
+                                    const amount = direction === 'multiply' ? total / rate : total * rate;
+
+                                    elements.amount.value = amount.toFixed(2);
+                                    isUpdating = false;
+                                }
+
                                 ['input', 'change'].forEach(event => {
-                                    elements.amount.addEventListener(event, calculateConversion);
-                                    elements.rate.addEventListener(event, calculateConversion);
-                                    elements.fromCurrency.addEventListener(event, calculateConversion);
-                                    elements.toCurrency.addEventListener(event, calculateConversion);
+                                    elements.amount.addEventListener(event, updateTotalFromAmount);
+                                    elements.rate.addEventListener(event, () => {
+                                        updateTotalFromAmount();
+                                        updateAmountFromTotal();
+                                    });
+                                    elements.fromCurrency.addEventListener(event, () => {
+                                        updateTotalFromAmount();
+                                        updateAmountFromTotal();
+                                    });
+                                    elements.toCurrency.addEventListener(event, () => {
+                                        updateTotalFromAmount();
+                                        updateAmountFromTotal();
+                                    });
+                                    elements.total.addEventListener(event, updateAmountFromTotal);
                                 });
 
-                                // حساب أولي عند التحميل
-                                calculateConversion();
+                                // أول حساب عند تحميل الصفحة
+                                updateTotalFromAmount();
                             });
                         </script>
 
@@ -217,30 +245,30 @@
 
         </div>
     </div>
-@if (session('redirect_to_receipt'))
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function () {
-                Swal.fire({
-                    title: 'هل تريد طباعة الإيصال؟',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'نعم',
-                    cancelButtonText: 'لا',
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "{{ route('receipt') }}";
-                    } else {
-                        // إذا لم يرغب المستخدم بالطباعة، يمكن إعادة تحميل الصفحة
-                        location.reload();
-                    }
-                });
-            }, 300);
-        });
-    </script>
-@endif
+    @if (session('redirect_to_receipt'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    Swal.fire({
+                        title: 'هل تريد طباعة الإيصال؟',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'نعم',
+                        cancelButtonText: 'لا',
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{{ route('receipt') }}";
+                        } else {
+                            // إذا لم يرغب المستخدم بالطباعة، يمكن إعادة تحميل الصفحة
+                            location.reload();
+                        }
+                    });
+                }, 300);
+            });
+        </script>
+    @endif
 
 
 
