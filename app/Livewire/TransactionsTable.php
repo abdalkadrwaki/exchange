@@ -7,7 +7,7 @@ use App\Models\Delivery;
 use App\Models\Exchange;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
-
+   use Livewire\Attributes\Js;
 class TransactionsTable extends Component
 {
     protected $listeners = ['refreshTransactions' => '$refresh'];
@@ -128,32 +128,34 @@ class TransactionsTable extends Component
         }
     }
 
-    public function updateTransaction()
-    {
-        if (! $this->editData) return;
 
-        if ($this->editData['type'] === 'Delivery') {
-            $model = Delivery::find($this->editData['id']);
-        } elseif ($this->editData['type'] === 'Exchange') {
-            $model = Exchange::find($this->editData['id']);
+
+public function updateTransaction()
+{
+    if (! $this->editData) return;
+
+    $model = $this->editData['type'] === 'Delivery'
+        ? Delivery::find($this->editData['id'])
+        : Exchange::find($this->editData['id']);
+
+    if ($model) {
+        $model->transaction_type = $this->editData['transaction_type'];
+        $model->amount = $this->editData['amount'];
+        $model->note = $this->editData['note'];
+
+        if ($this->editData['type'] === 'Exchange') {
+            $model->total = $this->editData['total'];
+            $model->rate = $this->editData['rate'];
         }
 
-        if ($model) {
-            $model->transaction_type = $this->editData['transaction_type'];
-            $model->amount = $this->editData['amount'];
-            $model->note = $this->editData['note'];
-
-            if ($this->editData['type'] === 'Exchange') {
-                $model->total = $this->editData['total'];
-                $model->rate = $this->editData['rate'];
-            }
-
-            $model->save();
-        }
-
-        $this->editData = null;
-        $this->dispatch('refreshTransactions');
+        $model->save();
     }
+
+    $this->editData = null;
+    $this->dispatch('refreshTransactions');
+    $this->dispatchBrowserEvent('close-edit-modal');
+}
+
 
     public function render()
     {

@@ -20,50 +20,62 @@
         ];
     @endphp
 
+    <!-- Modal التعديل -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true"
+        wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
 
-
-    @if ($editData)
-        <div class="card mt-4 p-3 border">
-            <h5>تعديل العملية: {{ $editData['transaction_code'] }}</h5>
-
-            <div class="mb-2">
-                <label>الوصف (النوع):</label>
-                <input type="text" class="form-control" wire:model.defer="editData.transaction_type">
-            </div>
-
-            <div class="mb-2">
-                <label>المبلغ:</label>
-                <input type="text" class="form-control" wire:model.defer="editData.amount">
-            </div>
-
-            @if ($editData['type'] === 'Exchange')
-                <div class="mb-2">
-                    <label>شراء:</label>
-                    <input type="text" class="form-control" wire:model.defer="editData.amount">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">تعديل العملية</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
                 </div>
 
-                <div class="mb-2">
-                    <label>بيع:</label>
-                    <input type="text" class="form-control" wire:model.defer="editData.total">
+                <div class="modal-body">
+                    @if ($editData)
+                        <div class="mb-2">
+                            <label>الوصف (النوع):</label>
+                            <input type="text" class="form-control" wire:model.defer="editData.transaction_type">
+                        </div>
+
+                        <div class="mb-2">
+                            <label>المبلغ:</label>
+                            <input type="text" class="form-control" wire:model.defer="editData.amount">
+                        </div>
+
+                        @if ($editData['type'] === 'Exchange')
+                            <div class="mb-2">
+                                <label>شراء:</label>
+                                <input type="text" class="form-control" wire:model.defer="editData.amount">
+                            </div>
+
+                            <div class="mb-2">
+                                <label>بيع:</label>
+                                <input type="text" class="form-control" wire:model.defer="editData.total">
+                            </div>
+
+                            <div class="mb-2">
+                                <label>سعر الصرف:</label>
+                                <input type="text" class="form-control" wire:model.defer="editData.rate">
+                            </div>
+                        @endif
+
+                        <div class="mb-2">
+                            <label>ملاحظة:</label>
+                            <input type="text" class="form-control" wire:model.defer="editData.note">
+                        </div>
+                    @endif
                 </div>
 
-                <div class="mb-2">
-                    <label>سعر الصرف:</label>
-                    <input type="text" class="form-control" wire:model.defer="editData.rate">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-success" wire:click="updateTransaction">حفظ التعديلات</button>
                 </div>
-            @endif
 
-            <div class="mb-2">
-                <label>ملاحظة:</label>
-                <input type="text" class="form-control" wire:model.defer="editData.note">
-            </div>
-
-            <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-success me-2" wire:click="updateTransaction">حفظ التعديلات</button>
-                <button class="btn btn-secondary" wire:click="$set('editData', null)">إلغاء</button>
             </div>
         </div>
-    @endif
+    </div>
+
 
 
 
@@ -105,7 +117,7 @@
                         <td class="text-center align-middle h-16">
                             <button
                                 wire:click="editTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
-                                class="btn btn-sm btn-primary me-1">
+                                class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editModal">
                                 تعديل
                             </button>
 
@@ -167,6 +179,12 @@
             </tbody>
         </table>
     </div>
+    <script>
+    window.addEventListener('close-edit-modal', () => {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+        modal.hide();
+    });
+</script>
 </div>
 
 </div>
