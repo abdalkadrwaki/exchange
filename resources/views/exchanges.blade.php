@@ -165,7 +165,7 @@
                                         @empty
                                         @endforelse
                                     </tbody>
-                                </table>ب
+                                </table>
                             </div>
                         </div>
                     @else
