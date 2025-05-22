@@ -123,10 +123,15 @@
                                                         </button>
 
                                                         @if (auth()->user()->hasRole('admin'))
-                                                            <button class="btn btn-sm btn-danger delete-exchange-btn"
-                                                                data-id="{{ $exchange->id }}">
-                                                                حذف
-                                                            </button>
+                                                            <form method="POST"
+                                                                action="{{ route('exchanges.destroy', $exchange->id) }}"
+                                                                onsubmit="return confirm('هل أنت متأكد من الحذف؟');"
+                                                                style="display:inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-danger">حذف</button>
+                                                            </form>
                                                         @endif
                                                     @else
                                                         <span class="badge bg-secondary">غير مصرح</span>
@@ -160,36 +165,9 @@
                                         @empty
                                         @endforelse
                                     </tbody>
-                                </table>
+                                </table>ب
                             </div>
                         </div>
-
-                            <script>
-    $(document).ready(function () {
-        $('.delete-exchange-btn').on('click', function () {
-            const id = $(this).data('id');
-            if (!confirm('هل أنت متأكد من الحذف؟')) return;
-
-            $.ajax({
-                url: '/exchanges/' + id,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    alert(response.message);
-                    // يمكنك تحديث الجدول أو حذف الصف مباشرة:
-                    location.reload(); // أو $('#row-' + id).remove();
-                },
-                error: function (xhr) {
-                    alert(xhr.responseJSON?.message || 'حدث خطأ أثناء الحذف');
-                }
-            });
-        });
-    });
-</script>
-
-
                     @else
                         <div class="table-responsive mt-5">
                             <div class="p-4 bg-custom-gray2 shadow-md rounded-md">
@@ -207,8 +185,8 @@
                                             <th class="text-center align-middle h-16 bg-black text-white ">سعر الصرف
                                             </th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">ملاحظة</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ الإنشاء
-                                            </th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ
+                                                الإنشاء</th>
                                         </tr>
                                     </thead>
                                     <tbody>
