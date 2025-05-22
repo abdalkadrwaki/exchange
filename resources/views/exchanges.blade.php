@@ -163,7 +163,7 @@
                                 </table>
                             </div>
                         </div>
-                        <script>
+
                             <script>
     $(document).ready(function () {
         $('.delete-exchange-btn').on('click', function () {
@@ -189,7 +189,7 @@
     });
 </script>
 
-                        </script>
+
                     @else
                         <div class="table-responsive mt-5">
                             <div class="p-4 bg-custom-gray2 shadow-md rounded-md">
