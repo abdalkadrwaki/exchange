@@ -43,10 +43,10 @@ class TransactionsTable extends Component
                     'beneficiary' => null,
                     'transaction_type' => $item->transaction_type,
                     'currency_name' => $item->currency_name,
-                      'currency_name3' => $item->currency_name3,
+                    'currency_name3' => $item->currency_name3,
                     'amount' => $item->amount,
                     'total' => $item->total,
-                      'rate' => $item->rate,
+                    'rate' => $item->rate,
                     'transaction_code' => $item->transaction_code,
                     'note' => $item->note,
                     'user' => $item->user->name ?? 'N/A',
@@ -93,6 +93,56 @@ class TransactionsTable extends Component
         }
 
         return $diffs;
+    }
+    public function deleteTransaction($type, $code)
+    {
+        if ($type === 'Delivery') {
+            Delivery::where('transaction_code', $code)->delete();
+        } elseif ($type === 'Exchange') {
+            Exchange::where('transaction_code', $code)->delete();
+        }
+
+        $this->dispatch('refreshTransactions'); // إعادة تحميل الجدول
+    }
+    public $editData = null;
+
+    public function editTransaction($type, $code)
+    {
+        if ($type === 'Delivery') {
+            $transaction = Delivery::where('transaction_code', $code)->first();
+        } elseif ($type === 'Exchange') {
+            $transaction = Exchange::where('transaction_code', $code)->first();
+        }
+
+        if ($transaction) {
+            $this->editData = [
+                'type' => $type,
+                'id' => $transaction->id,
+                'transaction_code' => $transaction->transaction_code,
+                'amount' => $transaction->amount,
+                'note' => $transaction->note,
+                // أضف أي حقل آخر تريد تعديله
+            ];
+        }
+    }
+    public function updateTransaction()
+    {
+        if (! $this->editData) return;
+
+        if ($this->editData['type'] === 'Delivery') {
+            $model = Delivery::find($this->editData['id']);
+        } elseif ($this->editData['type'] === 'Exchange') {
+            $model = Exchange::find($this->editData['id']);
+        }
+
+        if ($model) {
+            $model->amount = $this->editData['amount'];
+            $model->note = $this->editData['note'];
+            $model->save();
+        }
+
+        $this->editData = null;
+        $this->dispatch('refreshTransactions');
     }
 
     public function render()

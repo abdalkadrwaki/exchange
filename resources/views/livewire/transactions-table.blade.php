@@ -29,6 +29,8 @@
         <table id="dataTable" class="table users-table table-bordered mt-3 w-full text-center" style="direction: rtl;">
             <thead class="table-light sticky-top" style="top: 0; z-index: 1;">
                 <tr class="text-center">
+                    <th class="text-center bg-black text-white">الأجراءت</th>
+
                     <th class="text-center bg-black text-white ">اسم موظف</th>
                     <th class="text-center bg-black text-white ">رقم قيد</th>
                     <th class="text-center bg-black text-white ">الوصف </th>
@@ -57,6 +59,21 @@
                     @endphp
 
                     <tr class="{{ $rowClass }}">
+
+                        <td class="text-center align-middle h-16">
+                            <button
+                                wire:click="editTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
+                                class="btn btn-sm btn-primary me-1">
+                                تعديل
+                            </button>
+
+                            <button
+                                wire:click="deleteTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
+                                class="btn btn-sm btn-danger" onclick="return confirm('هل تريد حذف هذه العملية؟')">
+                                حذف
+                            </button>
+                        </td>
+
                         <td class="font-bold text-center align-middle h-16">{{ $transaction['user'] }}</td>
                         <td class="font-bold text-center align-middle h-16" style="color: blue ">
                             {{ $transaction['transaction_code'] }}</td>
@@ -109,5 +126,25 @@
         </table>
     </div>
 </div>
+@if ($editData)
+    <div class="card mt-4 p-3 border">
+        <h5>تعديل العملية ({{ $editData['transaction_code'] }})</h5>
+
+        <div class="mb-2">
+            <label>المبلغ:</label>
+            <input type="text" class="form-control" wire:model.defer="editData.amount">
+        </div>
+
+        <div class="mb-2">
+            <label>ملاحظة:</label>
+            <input type="text" class="form-control" wire:model.defer="editData.note">
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-success me-2" wire:click="updateTransaction">حفظ التعديلات</button>
+            <button class="btn btn-secondary" wire:click="$set('editData', null)">إلغاء</button>
+        </div>
+    </div>
+@endif
 
 </div>
