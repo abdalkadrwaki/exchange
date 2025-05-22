@@ -172,8 +172,8 @@
                                                 <select name="transaction_type2" id="transaction_type2"
                                                     class="form-select scrollable-input">
                                                     <option value="">اختر</option>
-                                                    <option value="Receive">استلام</option>
-                                                    <option value="delivery">تسليم</option>
+                                                    <option value="Receive">دخل</option>
+                                                    <option value="delivery">خرج</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
