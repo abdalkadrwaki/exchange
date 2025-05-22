@@ -7,6 +7,7 @@
         .table-responsive tbody tr:nth-child(odd) {
             background-color: #f9f9f9;
         }
+
         .table-responsive tbody tr:nth-child(even) {
             background-color: #e9ecef;
         }
@@ -40,12 +41,18 @@
                             <div class="col-md-4 mb-3">
                                 <label for="currency">العملة</label>
                                 <select id="currency" name="currency" class="form-select scrollable-input right-64">
-                                    <option value="all" {{ request('currency') == 'all' ? 'selected' : '' }}>الكل</option>
-                                    <option value="SYP" {{ request('currency') == 'SYP' ? 'selected' : '' }}>سوري</option>
-                                    <option value="USD" {{ request('currency') == 'USD' ? 'selected' : '' }}>دولار</option>
-                                    <option value="TRY" {{ request('currency') == 'TRY' ? 'selected' : '' }}>تركي</option>
-                                    <option value="EUR" {{ request('currency') == 'EUR' ? 'selected' : '' }}>يورو</option>
-                                    <option value="SAR" {{ request('currency') == 'SAR' ? 'selected' : '' }}>ريال سعودي</option>
+                                    <option value="all" {{ request('currency') == 'all' ? 'selected' : '' }}>الكل
+                                    </option>
+                                    <option value="SYP" {{ request('currency') == 'SYP' ? 'selected' : '' }}>سوري
+                                    </option>
+                                    <option value="USD" {{ request('currency') == 'USD' ? 'selected' : '' }}>دولار
+                                    </option>
+                                    <option value="TRY" {{ request('currency') == 'TRY' ? 'selected' : '' }}>تركي
+                                    </option>
+                                    <option value="EUR" {{ request('currency') == 'EUR' ? 'selected' : '' }}>يورو
+                                    </option>
+                                    <option value="SAR" {{ request('currency') == 'SAR' ? 'selected' : '' }}>ريال
+                                        سعودي</option>
                                 </select>
                             </div>
                         </div>
@@ -84,83 +91,19 @@
                                 <table id="exchangesTable" class="table table-bordered mt-3" style="direction: rtl;">
                                     <thead>
                                         <tr class="text-center">
-                                            <th class="text-center align-middle h-16 bg-black text-white ">الإجراءات</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">الإجراءات
+                                            </th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">الموظف</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">رقم القيد</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">رقم القيد
+                                            </th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">العملية</th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">بيع</th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">شراء</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">سعر الصرف</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">سعر الصرف
+                                            </th>
                                             <th class="text-center align-middle h-16 bg-black text-white ">ملاحظة</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ الإنشاء</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($exchanges as $exchange)
-                                            <tr class="text-center">
-                                                <td>
-                                                    @if ($exchange->user_id === auth()->id() || auth()->user()->hasRole('admin'))
-                                                        <button class="btn btn-sm btn-primary edit-exchange-btn"
-                                                            data-id="{{ $exchange->id }}"
-                                                            data-amount="{{ $exchange->amount }}"
-                                                            data-total="{{ $exchange->total }}"
-                                                            data-rate="{{ $exchange->rate }}"
-                                                            data-note="{{ $exchange->note }}"
-                                                            data-currency-from="{{ $exchange->currency_name }}"
-                                                            data-currency-to="{{ $exchange->currency_name3 }}">
-                                                            تعديل
-                                                        </button>
-
-                                                       
-                                                    @else
-                                                        <span class="badge bg-secondary">غير مصرح</span>
-                                                    @endif
-                                                </td>
-
-                                                <td class="font-bold text-center align-middle h-16">
-                                                    {{ $exchange->user->name ?? 'غير معروف' }}</td>
-                                                <td class="text-primary font-bold text-center align-middle h-16">
-                                                    {{ $exchange->transaction_code }}</td>
-                                                <td class="font-bold text-center align-middle h-16">
-                                                    {{ $transaction[$exchange->transaction_type] ?? $exchange->transaction_type }}
-                                                </td>
-                                                <td class="text-danger font-bold text-center align-middle h-16">
-                                                    {{ number_format($exchange->amount, 2) }}<br>
-                                                    <span class="text-dark">{{ $currencies[$exchange->currency_name] ?? $exchange->currency_name }}</span>
-                                                </td>
-                                                <td class="text-success font-bold text-center align-middle h-16">
-                                                    {{ number_format($exchange->total, 2) }}<br>
-                                                    <span class="text-dark">{{ $currencies[$exchange->currency_name3] ?? $exchange->currency_name3 }}</span>
-                                                </td>
-                                                <td class="font-bold text-center align-middle h-16">
-                                                    {{ $exchange->rate }}</td>
-                                                <td class="font-bold text-center align-middle h-16">
-                                                    {{ $exchange->note }}</td>
-                                                <td class="font-bold text-center align-middle h-16">
-                                                    {{ $exchange->created_at->format('Y-m-d') }}</td>
-                                            </tr>
-                                      @empty
-
-                                    @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @else
-                        <div class="table-responsive mt-5">
-                            <div class="p-4 bg-custom-gray2 shadow-md rounded-md">
-                                <table id="exchangesTable" class="table table-bordered mt-3" style="direction: rtl;">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th class="text-center align-middle h-16 bg-black text-white ">الإجراءات</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">الموظف</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">رقم القيد</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">العملية</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">بيع</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">شراء</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">سعر الصرف</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">ملاحظة</th>
-                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ الإنشاء</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ الإنشاء
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -199,11 +142,13 @@
                                                 </td>
                                                 <td class="text-danger font-bold text-center align-middle h-16">
                                                     {{ number_format($exchange->amount, 2) }}<br>
-                                                    <span class="text-dark">{{ $currencies[$exchange->currency_name] ?? $exchange->currency_name }}</span>
+                                                    <span
+                                                        class="text-dark">{{ $currencies[$exchange->currency_name] ?? $exchange->currency_name }}</span>
                                                 </td>
                                                 <td class="text-success font-bold text-center align-middle h-16">
                                                     {{ number_format($exchange->total, 2) }}<br>
-                                                    <span class="text-dark">{{ $currencies[$exchange->currency_name3] ?? $exchange->currency_name3 }}</span>
+                                                    <span
+                                                        class="text-dark">{{ $currencies[$exchange->currency_name3] ?? $exchange->currency_name3 }}</span>
                                                 </td>
                                                 <td class="font-bold text-center align-middle h-16">
                                                     {{ $exchange->rate }}</td>
@@ -213,7 +158,111 @@
                                                     {{ $exchange->created_at->format('Y-m-d') }}</td>
                                             </tr>
                                         @empty
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <script>
+                            <script>
+    $(document).ready(function () {
+        $('.delete-exchange-btn').on('click', function () {
+            const id = $(this).data('id');
+            if (!confirm('هل أنت متأكد من الحذف؟')) return;
 
+            $.ajax({
+                url: '/exchanges/' + id,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    alert(response.message);
+                    // يمكنك تحديث الجدول أو حذف الصف مباشرة:
+                    location.reload(); // أو $('#row-' + id).remove();
+                },
+                error: function (xhr) {
+                    alert(xhr.responseJSON?.message || 'حدث خطأ أثناء الحذف');
+                }
+            });
+        });
+    });
+</script>
+
+                        </script>
+                    @else
+                        <div class="table-responsive mt-5">
+                            <div class="p-4 bg-custom-gray2 shadow-md rounded-md">
+                                <table id="exchangesTable" class="table table-bordered mt-3" style="direction: rtl;">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th class="text-center align-middle h-16 bg-black text-white ">الإجراءات
+                                            </th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">الموظف</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">رقم القيد
+                                            </th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">العملية</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">بيع</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">شراء</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">سعر الصرف
+                                            </th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">ملاحظة</th>
+                                            <th class="text-center align-middle h-16 bg-black text-white ">تاريخ الإنشاء
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($exchanges as $exchange)
+                                            <tr class="text-center">
+                                                <td>
+                                                    @if ($exchange->user_id === auth()->id() || auth()->user()->hasRole('admin'))
+                                                        <button class="btn btn-sm btn-primary edit-exchange-btn"
+                                                            data-id="{{ $exchange->id }}"
+                                                            data-amount="{{ $exchange->amount }}"
+                                                            data-total="{{ $exchange->total }}"
+                                                            data-rate="{{ $exchange->rate }}"
+                                                            data-note="{{ $exchange->note }}"
+                                                            data-currency-from="{{ $exchange->currency_name }}"
+                                                            data-currency-to="{{ $exchange->currency_name3 }}">
+                                                            تعديل
+                                                        </button>
+
+                                                        @if (auth()->user()->hasRole('admin'))
+                                                            <button class="btn btn-sm btn-danger delete-exchange-btn"
+                                                                data-id="{{ $exchange->id }}">
+                                                                حذف
+                                                            </button>
+                                                        @endif
+                                                    @else
+                                                        <span class="badge bg-secondary">غير مصرح</span>
+                                                    @endif
+                                                </td>
+
+                                                <td class="font-bold text-center align-middle h-16">
+                                                    {{ $exchange->user->name ?? 'غير معروف' }}</td>
+                                                <td class="text-primary font-bold text-center align-middle h-16">
+                                                    {{ $exchange->transaction_code }}</td>
+                                                <td class="font-bold text-center align-middle h-16">
+                                                    {{ $transaction[$exchange->transaction_type] ?? $exchange->transaction_type }}
+                                                </td>
+                                                <td class="text-danger font-bold text-center align-middle h-16">
+                                                    {{ number_format($exchange->amount, 2) }}<br>
+                                                    <span
+                                                        class="text-dark">{{ $currencies[$exchange->currency_name] ?? $exchange->currency_name }}</span>
+                                                </td>
+                                                <td class="text-success font-bold text-center align-middle h-16">
+                                                    {{ number_format($exchange->total, 2) }}<br>
+                                                    <span
+                                                        class="text-dark">{{ $currencies[$exchange->currency_name3] ?? $exchange->currency_name3 }}</span>
+                                                </td>
+                                                <td class="font-bold text-center align-middle h-16">
+                                                    {{ $exchange->rate }}</td>
+                                                <td class="font-bold text-center align-middle h-16">
+                                                    {{ $exchange->note }}</td>
+                                                <td class="font-bold text-center align-middle h-16">
+                                                    {{ $exchange->created_at->format('Y-m-d') }}</td>
+                                            </tr>
+                                        @empty
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -250,7 +299,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">عملة البيع</label>
-                                            <select id="exchange_currency_from" name="currency_name" class="font-bold form-select">
+                                            <select id="exchange_currency_from" name="currency_name"
+                                                class="font-bold form-select">
                                                 @foreach ($currencies as $code => $name)
                                                     <option value="{{ $code }}">{{ $name }}</option>
                                                 @endforeach
@@ -263,7 +313,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">عملة الشراء</label>
-                                            <select id="exchange_currency_to" name="currency_name3" class=" font-bold form-select">
+                                            <select id="exchange_currency_to" name="currency_name3"
+                                                class=" font-bold form-select">
                                                 @foreach ($currencies as $code => $name)
                                                     <option value="{{ $code }}">{{ $name }}</option>
                                                 @endforeach
