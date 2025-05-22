@@ -119,12 +119,15 @@ class TransactionsTable extends Component
                 'type' => $type,
                 'id' => $transaction->id,
                 'transaction_code' => $transaction->transaction_code,
+                'transaction_type' => $transaction->transaction_type,
                 'amount' => $transaction->amount,
+                'total' => $transaction->total ?? '',
                 'note' => $transaction->note,
-                // أضف أي حقل آخر تريد تعديله
+                'rate' => $transaction->rate ?? '',
             ];
         }
     }
+
     public function updateTransaction()
     {
         if (! $this->editData) return;
@@ -136,8 +139,15 @@ class TransactionsTable extends Component
         }
 
         if ($model) {
+            $model->transaction_type = $this->editData['transaction_type'];
             $model->amount = $this->editData['amount'];
             $model->note = $this->editData['note'];
+
+            if ($this->editData['type'] === 'Exchange') {
+                $model->total = $this->editData['total'];
+                $model->rate = $this->editData['rate'];
+            }
+
             $model->save();
         }
 

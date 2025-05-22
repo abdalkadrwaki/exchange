@@ -22,27 +22,49 @@
 
 
 
+    @if ($editData)
+        <div class="card mt-4 p-3 border">
+            <h5>تعديل العملية: {{ $editData['transaction_code'] }}</h5>
 
-@if ($editData)
-    <div class="card mt-4 p-3 border">
-        <h5>تعديل العملية ({{ $editData['transaction_code'] }})</h5>
+            <div class="mb-2">
+                <label>الوصف (النوع):</label>
+                <input type="text" class="form-control" wire:model.defer="editData.transaction_type">
+            </div>
 
-        <div class="mb-2">
-            <label>المبلغ:</label>
-            <input type="text" class="form-control" wire:model.defer="editData.amount">
+            <div class="mb-2">
+                <label>المبلغ:</label>
+                <input type="text" class="form-control" wire:model.defer="editData.amount">
+            </div>
+
+            @if ($editData['type'] === 'Exchange')
+                <div class="mb-2">
+                    <label>شراء:</label>
+                    <input type="text" class="form-control" wire:model.defer="editData.amount">
+                </div>
+
+                <div class="mb-2">
+                    <label>بيع:</label>
+                    <input type="text" class="form-control" wire:model.defer="editData.total">
+                </div>
+
+                <div class="mb-2">
+                    <label>سعر الصرف:</label>
+                    <input type="text" class="form-control" wire:model.defer="editData.rate">
+                </div>
+            @endif
+
+            <div class="mb-2">
+                <label>ملاحظة:</label>
+                <input type="text" class="form-control" wire:model.defer="editData.note">
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-success me-2" wire:click="updateTransaction">حفظ التعديلات</button>
+                <button class="btn btn-secondary" wire:click="$set('editData', null)">إلغاء</button>
+            </div>
         </div>
+    @endif
 
-        <div class="mb-2">
-            <label>ملاحظة:</label>
-            <input type="text" class="form-control" wire:model.defer="editData.note">
-        </div>
-
-        <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-success me-2" wire:click="updateTransaction">حفظ التعديلات</button>
-            <button class="btn btn-secondary" wire:click="$set('editData', null)">إلغاء</button>
-        </div>
-    </div>
-@endif
 
 
     <div style="max-height: 450px; overflow-y: auto;">
