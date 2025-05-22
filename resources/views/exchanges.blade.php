@@ -111,12 +111,12 @@
                                                             تعديل
                                                         </button>
 
-                                                        @if (auth()->user()->hasRole('admin'))
+
                                                             <button class="btn btn-sm btn-danger delete-exchange-btn"
                                                                 data-id="{{ $exchange->id }}">
                                                                 حذف
                                                             </button>
-                                                        @endif
+
                                                     @else
                                                         <span class="badge bg-secondary">غير مصرح</span>
                                                     @endif
