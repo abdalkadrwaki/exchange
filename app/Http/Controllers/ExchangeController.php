@@ -46,7 +46,19 @@ class ExchangeController extends Controller
             'currencies' => $currencies,
         ]);
     }
+    public function destroy($id)
+    {
+        $exchange = Exchange::findOrFail($id);
 
+        // السماح فقط للأدمن بالحذف
+        if (!auth()->user()->hasRole('admin')) {
+            return response()->json(['success' => false, 'message' => 'غير مصرح بالحذف'], 403);
+        }
+
+        $exchange->delete();
+
+        return response()->json(['success' => true, 'message' => 'تم الحذف بنجاح']);
+    }
 
     public function update(Request $request, $id)
     {
@@ -75,18 +87,5 @@ class ExchangeController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
-    }
-
-    public function destroy($id)
-    {
-        $exchange = Exchange::findOrFail($id);
-
-        if (!auth()->user()->hasRole('admin')) {
-            return redirect()->back()->with('error', 'غير مصرح بالحذف');
-        }
-
-        $exchange->delete();
-
-        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }
