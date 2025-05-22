@@ -133,6 +133,26 @@
                     });
             });
         });
+
+
+document.querySelectorAll('.delete-exchange-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        if (!confirm('هل أنت متأكد؟')) return;
+        fetch(`/exchanges/${this.dataset.id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        }).then(response => {
+            if (response.ok) location.reload();
+        });
+    });
+});
+
+
+
+
+
     </script>
 
 </body>
