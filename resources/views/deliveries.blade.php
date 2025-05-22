@@ -40,7 +40,7 @@
                             <div class="col-md-4 mb-3">
                                 <label for="currency">العملة</label>
                                 <select id="currency" name="currency" class="form-select  scrollable-input right-64 ">
-                                  
+
                                     <option value="all" {{ request('currency') == 'all' ? 'selected' : '' }}>الكل
                                     </option>
                                     <option value="SYP" {{ request('currency') == 'SYP' ? 'selected' : '' }}>سوري
@@ -90,8 +90,8 @@
                                 'SAR' => 'ريال سعودي',
                             ];
                             $transaction = [
-                                'delivery' => 'تسليم',
-                                'Receive' => 'استلام',
+                                'delivery' => 'خرج',
+                                'Receive' => 'دخل',
                             ];
                         @endphp
 
