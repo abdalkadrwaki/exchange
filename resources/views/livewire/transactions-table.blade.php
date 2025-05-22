@@ -11,8 +11,8 @@
             'SAR' => 'ريال ',
         ];
         $tran = [
-            'delivery' => 'تسليم',
-            'Receive' => 'استلام',
+            'delivery' => 'خرج',
+            'Receive' => 'دخل',
             'buy' => 'شراء',
             'sell' => 'بيع',
             'Exchange' => 'صرافة',
