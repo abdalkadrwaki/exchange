@@ -90,8 +90,9 @@
                     <th class="text-center bg-black text-white ">الوصف </th>
 
                     <th class="text-center bg-black text-white ">المبلغ</th>
+                      <th class="text-center bg-black text-white ">بيع</th>
                     <th class="text-center bg-black text-white ">شراء</th>
-                    <th class="text-center bg-black text-white ">بيع</th>
+
 
                     <th class="text-center bg-black text-white ">ملاحظة</th>
 
