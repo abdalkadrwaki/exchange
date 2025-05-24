@@ -114,7 +114,7 @@
                                 $transaction['transaction_type'] === 'sell' &&
                                 $transaction['currency_name3'] === 'USD'
                                 => 'table-danger', // بيع دولار
-                            $transaction['type'] === 'Exchange' => 'table-warning', // عمليات صرافة أخرى
+                     
                             $transactionType === 'تسليم' => 'table-danger',
                             $transactionType === 'استلام' => 'table-success',
                             default => '',
