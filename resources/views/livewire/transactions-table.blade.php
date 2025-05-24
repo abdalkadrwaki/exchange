@@ -90,7 +90,7 @@
                     <th class="text-center bg-black text-white ">الوصف </th>
 
                     <th class="text-center bg-black text-white ">المبلغ</th>
-                    <th class="text-center bg-black text-white ">بيع</th>
+                      <th class="text-center bg-black text-white ">بيع</th>
                     <th class="text-center bg-black text-white ">شراء</th>
 
 
@@ -101,26 +101,22 @@
             </thead>
             <tbody>
                 @foreach ($transactions as $transaction)
-                    @php
-                        $typeValue = $tran[$transaction['type']] ?? $transaction['type'];
-                        $transactionType = $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
+            @php
+    $typeValue = $tran[$transaction['type']] ?? $transaction['type'];
+    $transactionType = $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
 
-                        $rowClass = match (true) {
-                            $transaction['type'] === 'Exchange' &&
-                                $transaction['transaction_type'] === 'buy' &&
-                                $transaction['currency_name'] === 'USD'
-                                => 'table-success', // شراء دولار
-                            $transaction['type'] === 'Exchange' &&
-                                $transaction['transaction_type'] === 'sell' &&
-                                $transaction['currency_name3'] === 'USD'
-                                => 'table-danger', // بيع دولار
-                     
-                            $transactionType === 'تسليم' => 'table-danger',
-                            $transactionType === 'استلام' => 'table-success',
-                            default => '',
-                        };
-
-                    @endphp
+    $rowClass = match (true) {
+        // إذا كانت العملية صرافة وبيع دولار
+        $transaction['type'] === 'Exchange' && $transaction['transaction_type'] === 'sell' && $transaction['currency_name3'] === 'USD' => 'table-danger',
+        // إذا كانت العملية صرافة وشراء دولار
+        $transaction['type'] === 'Exchange' && $transaction['transaction_type'] === 'buy' && $transaction['currency_name'] === 'USD' => 'table-success',
+        // الشروط الحالية
+        $typeValue === 'صرافة' => 'table-warning',
+        $transactionType === 'تسليم' => 'table-danger',
+        $transactionType === 'استلام' => 'table-success',
+        default => '',
+    };
+@endphp
 
                     <tr class="{{ $rowClass }}">
 
@@ -190,11 +186,11 @@
         </table>
     </div>
     <script>
-        window.addEventListener('close-edit-modal', () => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-            modal.hide();
-        });
-    </script>
+    window.addEventListener('close-edit-modal', () => {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+        modal.hide();
+    });
+</script>
 </div>
 
 </div>
