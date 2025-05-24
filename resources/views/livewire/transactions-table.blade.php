@@ -90,7 +90,7 @@
                     <th class="text-center bg-black text-white ">الوصف </th>
 
                     <th class="text-center bg-black text-white ">المبلغ</th>
-                      <th class="text-center bg-black text-white ">بيع</th>
+                    <th class="text-center bg-black text-white ">بيع</th>
                     <th class="text-center bg-black text-white ">شراء</th>
 
 
@@ -105,13 +105,23 @@
                         $typeValue = $tran[$transaction['type']] ?? $transaction['type'];
                         $transactionType = $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
 
-                        $rowClass = match (true) {
-                            $typeValue === 'صرافة' => 'table-warning',
-                            $transactionType === 'تسليم' => 'table-danger',
-                            $transactionType === 'استلام' => 'table-success',
-                            default => '',
-                        };
+                        $rowClass = '';
+
+                        if ($transaction['type'] === 'Exchange') {
+                            if ($transaction['currency_name3'] === 'USD') {
+                                $rowClass = 'table-danger'; // بيع دولار
+                            } elseif ($transaction['currency_name3'] === 'SYP') {
+                                $rowClass = 'table-success'; // بيع سوري
+                            } else {
+                                $rowClass = 'table-warning'; // عمليات صرافة أخرى
+                            }
+                        } elseif ($transactionType === 'تسليم') {
+                            $rowClass = 'table-danger';
+                        } elseif ($transactionType === 'استلام') {
+                            $rowClass = 'table-success';
+                        }
                     @endphp
+
 
                     <tr class="{{ $rowClass }}">
 
@@ -181,11 +191,11 @@
         </table>
     </div>
     <script>
-    window.addEventListener('close-edit-modal', () => {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-        modal.hide();
-    });
-</script>
+        window.addEventListener('close-edit-modal', () => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            modal.hide();
+        });
+    </script>
 </div>
 
 </div>
