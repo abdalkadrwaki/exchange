@@ -29,18 +29,33 @@
                         </button>
                     </x-nav-link>
                     @can('full access')
-                    <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" class="no-underline">
-                        <button
-                            class="inline-flex items-center px-4 py-2 mt-1.5 text-sm font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-0.5 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" class="no-underline">
+                            <button
+                                class="inline-flex items-center px-4 py-2 mt-1.5 text-sm font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-0.5 focus:ring-indigo-500 transition duration-150 ease-in-out">
 
-                            <svg class="text-indigo-500 transition-transform duration-300 group-hover:text-indigo-600"
-                                xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
-                                <path fill="#075ef2"
-                                    d="M208 32c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 140.9 122-70.4c15.3-8.8 34.9-3.6 43.7 11.7l16 27.7c8.8 15.3 3.6 34.9-11.7 43.7L352 256l122 70.4c15.3 8.8 20.6 28.4 11.7 43.7l-16 27.7c-8.8 15.3-28.4 20.6-43.7 11.7L304 339.1 304 480c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-140.9L86 409.6c-15.3 8.8-34.9 3.6-43.7-11.7l-16-27.7c-8.8-15.3-3.6-34.9 11.7-43.7L160 256 38 185.6c-15.3-8.8-20.5-28.4-11.7-43.7l16-27.7C51.1 98.8 70.7 93.6 86 102.4l122 70.4L208 32z" />
-                            </svg>
-                            <span>  {{ __('ادراة مستخدمين ') }}</span>
-                        </button>
-                    </x-nav-link>
+                                <svg class="text-indigo-500 transition-transform duration-300 group-hover:text-indigo-600"
+                                    xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
+                                    <path fill="#075ef2"
+                                        d="M208 32c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 140.9 122-70.4c15.3-8.8 34.9-3.6 43.7 11.7l16 27.7c8.8 15.3 3.6 34.9-11.7 43.7L352 256l122 70.4c15.3 8.8 20.6 28.4 11.7 43.7l-16 27.7c-8.8 15.3-28.4 20.6-43.7 11.7L304 339.1 304 480c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-140.9L86 409.6c-15.3 8.8-34.9 3.6-43.7-11.7l-16-27.7c-8.8-15.3-3.6-34.9 11.7-43.7L160 256 38 185.6c-15.3-8.8-20.5-28.4-11.7-43.7l16-27.7C51.1 98.8 70.7 93.6 86 102.4l122 70.4L208 32z" />
+                                </svg>
+                                <span> {{ __('ادراة مستخدمين ') }}</span>
+                            </button>
+                        </x-nav-link>
+
+
+
+                        <x-nav-link href="{{ route('admin.homee') }}" :active="request()->routeIs('admin.homee')" class="no-underline">
+                            <button
+                                class="inline-flex items-center px-4 py-2 mt-1.5 text-sm font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-0.5 focus:ring-indigo-500 transition duration-150 ease-in-out">
+
+                                <svg class="text-indigo-500 transition-transform duration-300 group-hover:text-indigo-600"
+                                    xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
+                                    <path fill="#075ef2"
+                                        d="M208 32c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 140.9 122-70.4c15.3-8.8 34.9-3.6 43.7 11.7l16 27.7c8.8 15.3 3.6 34.9-11.7 43.7L352 256l122 70.4c15.3 8.8 20.6 28.4 11.7 43.7l-16 27.7c-8.8 15.3-28.4 20.6-43.7 11.7L304 339.1 304 480c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-140.9L86 409.6c-15.3 8.8-34.9 3.6-43.7-11.7l-16-27.7c-8.8-15.3-3.6-34.9 11.7-43.7L160 256 38 185.6c-15.3-8.8-20.5-28.4-11.7-43.7l16-27.7C51.1 98.8 70.7 93.6 86 102.4l122 70.4L208 32z" />
+                                </svg>
+                                <span> {{ __(' ادخال بيانات ') }}</span>
+                            </button>
+                        </x-nav-link>
                     @endcan
 
 
@@ -159,7 +174,8 @@
                                         {{ Auth::user()->name }}
 
                                         <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                         </svg>

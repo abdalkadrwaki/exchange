@@ -7,11 +7,11 @@ use App\Models\Exchange;
 use App\Models\Delivery;
 use Illuminate\Support\Facades\Auth;
 
-class TransactionController extends Controller
+class TransactionadminController extends Controller
 {
     public function index()
     {
-        return view('admin.home');
+        return view('admin.homee');
     }
 
     public function store(Request $request)
@@ -106,6 +106,6 @@ if ($delivery) {
 }
 
 
-        return redirect()->back()->with('redirect_to_receipt', true);
+        return redirect()->back()->with('redirect_to_receiptt', true);
     }
 }

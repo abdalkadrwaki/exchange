@@ -245,7 +245,7 @@
 
         </div>
     </div>
-    @if (session('redirect_to_receipt'))
+    @if (session('redirect_to_receiptt'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -273,3 +273,4 @@
 
 
 </x-app-layout>
+<
