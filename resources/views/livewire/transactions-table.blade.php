@@ -90,7 +90,7 @@
                     <th class="text-center bg-black text-white ">الوصف </th>
 
                     <th class="text-center bg-black text-white ">المبلغ</th>
-                      <th class="text-center bg-black text-white ">بيع</th>
+                    <th class="text-center bg-black text-white ">بيع</th>
                     <th class="text-center bg-black text-white ">شراء</th>
 
 
@@ -106,11 +106,20 @@
                         $transactionType = $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
 
                         $rowClass = match (true) {
-                            $typeValue === 'صرافة' => 'table-warning',
+                            $transaction['type'] === 'Exchange' &&
+                                $transaction['transaction_type'] === 'buy' &&
+                                $transaction['currency_name'] === 'USD'
+                                => 'table-success', // شراء دولار
+                            $transaction['type'] === 'Exchange' &&
+                                $transaction['transaction_type'] === 'sell' &&
+                                $transaction['currency_name3'] === 'USD'
+                                => 'table-danger', // بيع دولار
+                            $transaction['type'] === 'Exchange' => 'table-warning', // عمليات صرافة أخرى
                             $transactionType === 'تسليم' => 'table-danger',
                             $transactionType === 'استلام' => 'table-success',
                             default => '',
                         };
+
                     @endphp
 
                     <tr class="{{ $rowClass }}">
@@ -181,11 +190,11 @@
         </table>
     </div>
     <script>
-    window.addEventListener('close-edit-modal', () => {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-        modal.hide();
-    });
-</script>
+        window.addEventListener('close-edit-modal', () => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            modal.hide();
+        });
+    </script>
 </div>
 
 </div>
