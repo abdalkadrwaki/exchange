@@ -78,124 +78,127 @@
 
 
 
+    <div class=" w-72" >
+        <div style="max-height: 450px; overflow-y: auto;">
+            <table id="dataTable" class="table users-table table-bordered mt-3 w-full text-center"
+                style="direction: rtl;">
+                <thead class="table-light sticky-top" style="top: 0; z-index: 1;">
+                    <tr class="text-center">
+                        <th class="text-center bg-black text-white">الأجراءت</th>
 
-    <div style="max-height: 450px; overflow-y: auto;">
-        <table id="dataTable" class="table users-table table-bordered mt-3 w-full text-center" style="direction: rtl;">
-            <thead class="table-light sticky-top" style="top: 0; z-index: 1;">
-                <tr class="text-center">
-                    <th class="text-center bg-black text-white">الأجراءت</th>
+                        <th class="text-center bg-black text-white ">اسم موظف</th>
+                        <th class="text-center bg-black text-white ">رقم قيد</th>
+                        <th class="text-center bg-black text-white ">الوصف </th>
 
-                    <th class="text-center bg-black text-white ">اسم موظف</th>
-                    <th class="text-center bg-black text-white ">رقم قيد</th>
-                    <th class="text-center bg-black text-white ">الوصف </th>
-
-                    <th class="text-center bg-black text-white ">المبلغ</th>
-                    <th class="text-center bg-black text-white ">بيع</th>
-                    <th class="text-center bg-black text-white ">شراء</th>
-
-
-                    <th class="text-center bg-black text-white ">ملاحظة</th>
-
-                    <th class="text-center bg-black text-white ">تاريخ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transactions as $transaction)
-                    @php
-                        $typeValue = $tran[$transaction['type']] ?? $transaction['type'];
-                        $transactionType = $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
-
-                        $rowClass = '';
-
-                        if ($transaction['type'] === 'Exchange') {
-                            if ($transaction['currency_name3'] === 'USD') {
-                                $rowClass = 'table-danger'; // بيع دولار
-                            } elseif ($transaction['currency_name3'] === 'SYP') {
-                                $rowClass = 'table-success'; // بيع سوري
-                            } else {
-                                $rowClass = 'table-warning'; // عمليات صرافة أخرى
-                            }
-                        } elseif ($transactionType === 'تسليم') {
-                            $rowClass = 'table-danger';
-                        } elseif ($transactionType === 'استلام') {
-                            $rowClass = 'table-success';
-                        }
-                    @endphp
+                        <th class="text-center bg-black text-white ">المبلغ</th>
+                        <th class="text-center bg-black text-white ">بيع</th>
+                        <th class="text-center bg-black text-white ">شراء</th>
 
 
-                    <tr class="{{ $rowClass }}">
+                        <th class="text-center bg-black text-white ">ملاحظة</th>
 
-                        <td class="text-center align-middle h-16">
-                            <button
-                                wire:click="editTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
-                                class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editModal">
-                                تعديل
-                            </button>
-
-                            <button
-                                wire:click="deleteTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
-                                class="btn btn-sm btn-danger" onclick="return confirm('هل تريد حذف هذه العملية؟')">
-                                حذف
-                            </button>
-                        </td>
-
-                        <td class="font-bold text-center align-middle h-16">{{ $transaction['user'] }}</td>
-                        <td class="font-bold text-center align-middle h-16" style="color: blue ">
-                            {{ $transaction['transaction_code'] }}</td>
-                        <td class="font-bold text-center align-middle h-16">
-                            @if ($transaction['type'] === 'Delivery')
-                                {{ $transaction['beneficiary'] }} - ({{ $transactionType }})
-                            @else
-                                {{ $transactionType }} - ({{ $transaction['rate'] }})
-                            @endif
-                        </td>
-
-
-
-                        {{-- المبلغ --}}
-                        <td class="font-bold text-center align-middle h-16">
-                            @if ($transaction['type'] === 'Delivery')
-                                {{ $transaction['amount'] }}<br>
-                                {{ $currencies[$transaction['currency_name']] ?? $transaction['currency_name'] }}
-                            @else
-                                -
-                            @endif
-                        </td>
-
-                        {{-- شراء --}}
-                        <td class="font-bold text-center align-middle h-16">
-                            @if ($transaction['type'] === 'Exchange')
-                                {{ $transaction['amount'] }}<br>
-                                {{ $currencies[$transaction['currency_name']] ?? $transaction['currency_name'] }}
-                            @else
-                                -
-                            @endif
-                        </td>
-
-                        {{-- بيع --}}
-                        <td class="font-bold text-center align-middle h-16">
-                            @if ($transaction['type'] === 'Exchange')
-                                {{ $transaction['total'] }}<br>
-                                {{ $currencies[$transaction['currency_name3']] ?? $transaction['currency_name3'] }}
-                            @else
-                                -
-                            @endif
-                        </td>
-
-
-                        <td class="font-bold text-center align-middle h-16">{{ $transaction['note'] }}</td>
-                        <td class="font-bold text-center align-middle h-16">{{ $transaction['created_at'] }}</td>
+                        <th class="text-center bg-black text-white ">تاريخ</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($transactions as $transaction)
+                        @php
+                            $typeValue = $tran[$transaction['type']] ?? $transaction['type'];
+                            $transactionType =
+                                $tran[$transaction['transaction_type']] ?? $transaction['transaction_type'];
+
+                            $rowClass = '';
+
+                            if ($transaction['type'] === 'Exchange') {
+                                if ($transaction['currency_name3'] === 'USD') {
+                                    $rowClass = 'table-danger'; // بيع دولار
+                                } elseif ($transaction['currency_name3'] === 'SYP') {
+                                    $rowClass = 'table-success'; // بيع سوري
+                                } else {
+                                    $rowClass = 'table-warning'; // عمليات صرافة أخرى
+                                }
+                            } elseif ($transactionType === 'تسليم') {
+                                $rowClass = 'table-danger';
+                            } elseif ($transactionType === 'استلام') {
+                                $rowClass = 'table-success';
+                            }
+                        @endphp
+
+
+                        <tr class="{{ $rowClass }}">
+
+                            <td class="text-center align-middle h-16">
+                                <button
+                                    wire:click="editTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
+                                    class="btn btn-sm btn-primary me-1" data-bs-toggle="modal"
+                                    data-bs-target="#editModal">
+                                    تعديل
+                                </button>
+
+                                <button
+                                    wire:click="deleteTransaction('{{ $transaction['type'] }}', '{{ $transaction['transaction_code'] }}')"
+                                    class="btn btn-sm btn-danger" onclick="return confirm('هل تريد حذف هذه العملية؟')">
+                                    حذف
+                                </button>
+                            </td>
+
+                            <td class="font-bold text-center align-middle h-16">{{ $transaction['user'] }}</td>
+                            <td class="font-bold text-center align-middle h-16" style="color: blue ">
+                                {{ $transaction['transaction_code'] }}</td>
+                            <td class="font-bold text-center align-middle h-16">
+                                @if ($transaction['type'] === 'Delivery')
+                                    {{ $transaction['beneficiary'] }} - ({{ $transactionType }})
+                                @else
+                                    {{ $transactionType }} - ({{ $transaction['rate'] }})
+                                @endif
+                            </td>
+
+
+
+                            {{-- المبلغ --}}
+                            <td class="font-bold text-center align-middle h-16">
+                                @if ($transaction['type'] === 'Delivery')
+                                    {{ $transaction['amount'] }}<br>
+                                    {{ $currencies[$transaction['currency_name']] ?? $transaction['currency_name'] }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+
+                            {{-- شراء --}}
+                            <td class="font-bold text-center align-middle h-16">
+                                @if ($transaction['type'] === 'Exchange')
+                                    {{ $transaction['amount'] }}<br>
+                                    {{ $currencies[$transaction['currency_name']] ?? $transaction['currency_name'] }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+
+                            {{-- بيع --}}
+                            <td class="font-bold text-center align-middle h-16">
+                                @if ($transaction['type'] === 'Exchange')
+                                    {{ $transaction['total'] }}<br>
+                                    {{ $currencies[$transaction['currency_name3']] ?? $transaction['currency_name3'] }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+
+
+                            <td class="font-bold text-center align-middle h-16">{{ $transaction['note'] }}</td>
+                            <td class="font-bold text-center align-middle h-16">{{ $transaction['created_at'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <script>
+            window.addEventListener('close-edit-modal', () => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+                modal.hide();
+            });
+        </script>
     </div>
-    <script>
-        window.addEventListener('close-edit-modal', () => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-            modal.hide();
-        });
-    </script>
-</div>
 
 </div>
