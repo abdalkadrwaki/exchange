@@ -35,6 +35,10 @@
 
     <div class="receipt ">
         <div class="header">
+
+
+                    <img src="{{ asset('images/image-removebg-preview.png') }}" alt="Logo" class="  " style="width: 50px; height: 50px; mrgin-right: 50px; margin-left:  margin-bottom: 50px;">
+
             <button onclick="window.location='{{ route('dashboard') }}'"
                 style="background: none; border: none; color: black; font-weight: bold; font-size: 40px; cursor: pointer;">
                 مكتب أبو وليد واكي
