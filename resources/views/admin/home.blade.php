@@ -64,7 +64,11 @@
                                                     class="font-bold  form-control number-only scrollable-input2"
                                                     placeholder="">
                                             </div>
-
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">بيع مبلغ</label>
+                                                <input type="text" name="amount" id="amount"
+                                                    class="font-bold form-control number-only scrollable-input2">
+                                            </div>
 
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">إلى العملة</label>
@@ -77,11 +81,6 @@
                                                     <option value="TRY">ليرة تركية</option>
                                                     <option value="EUR">يورو</option>
                                                 </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">بيع مبلغ</label>
-                                                <input type="text" name="amount" id="amount"
-                                                    class="font-bold form-control number-only scrollable-input2">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">سعر الصرف:</label>
@@ -145,7 +144,7 @@
                                     }
 
                                     const direction = getConversionDirection(from, to);
-                                    const total = direction === 'multiply' ? amount / rate : amount * rate;
+                                    const total = direction === 'multiply' ? amount * rate : amount / rate;
 
                                     elements.total.value = total.toFixed(2);
                                     isUpdating = false;
