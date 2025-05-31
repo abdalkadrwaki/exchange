@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="content">
+        <div class="content justify-center">
             @php
                 $currencies = [
                     'SYP' => ' ليرة سورية',
