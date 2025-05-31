@@ -63,7 +63,7 @@
 
                 <div class="header flex flex-col items-center space-y-4 py-6 bg-white shadow-md rounded-lg"
                     style="width: 80mm; direction: rtl; font-family: Tahoma, sans-serif; text-align: center; margin: 0 auto; padding: 5px; border: 3px dashed #000;">
-                                <img src="{{ asset('images/image-removebg-preview (1).png') }}" alt="Logo" class=" w-40 h-40 object-contain" />
+                                <img src="{{ asset('images/image-removebg-preview (1).png') }}" alt="Logo" class=" object-contain" />
 
                     <h3
                         style="margin: 0; font-size: 22px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 5px;">
