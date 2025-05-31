@@ -19,7 +19,7 @@
         </div>
     </div>
 
-     <div class="py-12">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="container-custom">
                 @if (session('success'))
@@ -64,11 +64,7 @@
                                                     class="font-bold  form-control number-only scrollable-input2"
                                                     placeholder="">
                                             </div>
-<div class="col-md-6 mb-3">
-                                                <label class="form-label">بيع مبلغ</label>
-                                                <input type="text" name="amount" id="amount"
-                                                    class="font-bold form-control number-only scrollable-input2">
-                                            </div>
+
 
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">إلى العملة</label>
@@ -81,6 +77,11 @@
                                                     <option value="TRY">ليرة تركية</option>
                                                     <option value="EUR">يورو</option>
                                                 </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">بيع مبلغ</label>
+                                                <input type="text" name="amount" id="amount"
+                                                    class="font-bold form-control number-only scrollable-input2">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">سعر الصرف:</label>

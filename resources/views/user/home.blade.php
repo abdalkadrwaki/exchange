@@ -44,13 +44,8 @@
                                                 </select>
                                             </div>
 
+
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label">شراء مبلغ</label>
-                                                <input type="" name="total" id="total"
-                                                    class="font-bold  form-control number-only scrollable-input2"
-                                                    placeholder="">
-                                            </div>
-<div class="col-md-6 mb-3">
                                                 <label class="form-label">من العملة</label>
                                                 <select name="currency_name" id="currency_name"
                                                     class="font-bold form-select scrollable-input">
@@ -62,7 +57,12 @@
                                                     <option value="EUR">يورو</option>
                                                 </select>
                                             </div>
-
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">شراء مبلغ</label>
+                                                <input type="" name="total" id="total"
+                                                    class="font-bold  form-control number-only scrollable-input2"
+                                                    placeholder="">
+                                            </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">بيع مبلغ</label>
                                                 <input type="text" name="amount" id="amount"
