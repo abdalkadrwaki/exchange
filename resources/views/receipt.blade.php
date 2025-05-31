@@ -62,7 +62,7 @@
             {{-- عملية صرافة --}}
             @if (session('exchange'))
 
-                <div
+                <div class="header flex flex-col items-center space-y-4 py-6 bg-white shadow-md rounded-lg"
                     style="width: 80mm; direction: rtl; font-family: Tahoma, sans-serif; text-align: center; margin: 0 auto; padding: 5px; border: 3px dashed #000;">
                     <h3
                         style="margin: 0; font-size: 22px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 5px;">
