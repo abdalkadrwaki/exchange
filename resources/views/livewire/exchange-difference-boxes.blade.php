@@ -34,7 +34,7 @@
                     <!-- سعر الصرف الوسطي للشراء -->
                     <div class="text-center py-3">
                         <div class="border border-gray-900 py-2 text-xl font-bold">
-                            سعر صرف وسطي للشراء:
+                              وسطي للشراء:
                             <span class="text-blue-700 font-bold">
                                 {{ $data['average_buy_rate'] ?? '—' }}
                             </span>
@@ -44,7 +44,7 @@
                     <!-- سعر الصرف الوسطي للبيع -->
                     <div class="text-center pb-3">
                         <div class="border border-gray-900 py-2 text-xl font-bold">
-                            سعر صرف وسطي للبيع:
+                              وسطي للبيع
                             <span class="text-green-700 font-bold">
                                 {{ $data['average_sell_rate'] ?? '—' }}
                             </span>
