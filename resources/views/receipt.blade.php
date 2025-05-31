@@ -36,7 +36,7 @@
     <div class="receipt ">
         <div class="header flex flex-col items-center space-y-4 py-6 bg-white shadow-md rounded-lg">
             <!-- الشعار -->
-            <img src="{{ asset('images/image-removebg-preview (1).png') }}" alt="Logo" class="w-80 h-48 object-contain" />
+            <img src="{{ asset('images/image-removebg-preview (1).png') }}" alt="Logo" class=" w-64  h-40 object-contain" />
 
 
         </div>
