@@ -36,16 +36,9 @@
     <div class="receipt ">
         <div class="header flex flex-col items-center space-y-4 py-6 bg-white shadow-md rounded-lg">
             <!-- الشعار -->
-            <img src="{{ asset('images/image-removebg-preview.png') }}" alt="Logo" class="w-80 h-48 object-contain" />
+            <img src="{{ asset('images/image-removebg-preview (1).png') }}" alt="Logo" class="w-80 h-48 object-contain" />
 
-            <!-- العنوان كزر -->
-            <button onclick="window.location='{{ route('dashboard') }}'"
-                class="text-3xl font-bold text-gray-800 hover:text-blue-600 transition duration-300">
-                مكتب أبو وليد واكي
-            </button>
 
-            <!-- خط فاصل -->
-            <hr class="w-full border-t border-gray-300">
         </div>
 
 
