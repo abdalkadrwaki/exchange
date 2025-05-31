@@ -34,18 +34,20 @@
 
 
     <div class="receipt ">
-        <div class="header">
+        <div class="header flex flex-col items-center space-y-4 py-6 bg-white shadow-md rounded-lg">
+            <!-- الشعار -->
+            <img src="{{ asset('images/image-removebg-preview.png') }}" alt="Logo" class="w-80 h-48 object-contain" />
 
-
-                    <img src="{{ asset('images/image-removebg-preview.png') }}" alt="Logo" class="  " style="width: 400px; height: 200px;">
-
+            <!-- العنوان كزر -->
             <button onclick="window.location='{{ route('dashboard') }}'"
-                style="background: none; border: none; color: black; font-weight: bold; font-size: 40px; cursor: pointer;">
+                class="text-3xl font-bold text-gray-800 hover:text-blue-600 transition duration-300">
                 مكتب أبو وليد واكي
             </button>
 
-            <hr>
+            <!-- خط فاصل -->
+            <hr class="w-full border-t border-gray-300">
         </div>
+
 
         <div class="content">
             @php
@@ -109,7 +111,7 @@
                             <tr>
                                 <td colspan="1" style="border: 1px solid #000; padding: 8px; font-weight: bold;">
                                     الإجمالي:</td>
-                                <td  colspan="2" style="border: 1px solid #000; padding: 8px; font-weight: bold;">
+                                <td colspan="2" style="border: 1px solid #000; padding: 8px; font-weight: bold;">
                                     {{ number_format(session('exchange')['total'], 2) }}
                                     {{ $currencies[session('exchange')['currency_name3']] ?? session('exchange')['currency_name3'] }}
                                 </td>
@@ -180,8 +182,8 @@
         window.print();
 
         // بعد انتهاء الطباعة، انتظر ثانيتين ثم انتقل للوحة التحكم
-        window.onafterprint = function () {
-            setTimeout(function () {
+        window.onafterprint = function() {
+            setTimeout(function() {
                 window.location.href = "{{ route('dashboard') }}";
             }, 500); // يمكنك تعديل التأخير إذا أردت
         };
