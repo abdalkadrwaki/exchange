@@ -152,7 +152,7 @@
                                     }
 
                                     const direction = getConversionDirection(from, to);
-                                    const amount = direction === 'multiply' ? total / rate : total * rate;
+                                    const amount = direction === 'multiply' ? total * rate : total / rate;
 
                                     elements.amount.value = amount.toFixed(2);
                                     isUpdating = false;
