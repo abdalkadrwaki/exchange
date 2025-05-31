@@ -8,7 +8,7 @@
             'SAR' => 'ريال',
         ];
     @endphp
-    <div class="flex justify-center items-center min-h-screen">
+    <div class="flex justify-center items-center ">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             @foreach ($stats as $code => $data)
                 @php
