@@ -29,24 +29,7 @@
                                 <div class="card-body">
                                     <div class="p-4 bg-custom-gray2 shadow-md rounded-md  ">
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">من العملة</label>
-                                                <select name="currency_name" id="currency_name"
-                                                    class="font-bold form-select scrollable-input">
-                                                    <option value="">اختر</option>
-                                                    <option value="USD">دولار</option>
-                                                    <option value="SYP">ليرة سورية</option>
-                                                    <option value="SAR">ريال سعودي</option>
-                                                    <option value="TRY">ليرة تركية</option>
-                                                    <option value="EUR">يورو</option>
-                                                </select>
-                                            </div>
 
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">بيع مبلغ</label>
-                                                <input type="text" name="amount" id="amount"
-                                                    class="font-bold form-control number-only scrollable-input2">
-                                            </div>
 
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">إلى العملة</label>
@@ -67,7 +50,24 @@
                                                     class="font-bold  form-control number-only scrollable-input2"
                                                     placeholder="">
                                             </div>
+<div class="col-md-6 mb-3">
+                                                <label class="form-label">من العملة</label>
+                                                <select name="currency_name" id="currency_name"
+                                                    class="font-bold form-select scrollable-input">
+                                                    <option value="">اختر</option>
+                                                    <option value="USD">دولار</option>
+                                                    <option value="SYP">ليرة سورية</option>
+                                                    <option value="SAR">ريال سعودي</option>
+                                                    <option value="TRY">ليرة تركية</option>
+                                                    <option value="EUR">يورو</option>
+                                                </select>
+                                            </div>
 
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">بيع مبلغ</label>
+                                                <input type="text" name="amount" id="amount"
+                                                    class="font-bold form-control number-only scrollable-input2">
+                                            </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">سعر الصرف:</label>
                                                 <input type="text" name="rate" id="rate"
