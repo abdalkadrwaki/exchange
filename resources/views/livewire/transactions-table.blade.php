@@ -78,7 +78,7 @@
 
 
 
-    <div class=" w-72" >
+    <div class="" >
         <div style="max-height: 450px; overflow-y: auto;">
             <table id="dataTable" class="table users-table table-bordered mt-3 w-full text-center"
                 style="direction: rtl;">
